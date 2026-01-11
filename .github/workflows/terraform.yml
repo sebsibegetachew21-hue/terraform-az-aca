@@ -58,6 +58,7 @@ jobs:
       contents: read
       id-token: write
     env:
+      RESOURCE_GROUP_NAME: "tf-aca-rg"
       ARM_USE_OIDC: "true"
       ARM_CLIENT_ID: ${{ secrets.AZURE_CLIENT_ID }}
       ARM_TENANT_ID: ${{ secrets.AZURE_TENANT_ID }}
@@ -81,5 +82,10 @@ jobs:
             -backend-config="storage_account_name=${{ secrets.TF_STATE_STORAGE }}" \
             -backend-config="container_name=${{ secrets.TF_STATE_CONTAINER }}" \
             -backend-config="key=${{ secrets.TF_STATE_KEY }}"
+      - name: Terraform import resource group (if needed)
+        run: |
+          if ! terraform state show azurerm_resource_group.rg >/dev/null 2>&1; then
+            terraform import azurerm_resource_group.rg "/subscriptions/${ARM_SUBSCRIPTION_ID}/resourceGroups/${RESOURCE_GROUP_NAME}"
+          fi
       - name: Terraform apply
         run: terraform apply -auto-approve -lock-timeout=5m
