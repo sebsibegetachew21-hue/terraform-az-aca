@@ -33,3 +33,4 @@ terraform destroy
 ## Notes
 - Region defaults to `eastus`. Change it in `terraform.tfvars` if you prefer.
 - The Container App uses a public image so you don't need ACR to get started.
+# terraform-az-aca
