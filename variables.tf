@@ -10,6 +10,12 @@ variable "name_prefix" {
   default     = "tf-aca"
 }
 
+variable "resource_group_name" {
+  description = "Fixed resource group name to avoid creating multiple RGs"
+  type        = string
+  default     = "tf-aca-rg"
+}
+
 variable "container_image" {
   description = "Public container image to run (start simple: public image, no ACR needed)"
   type        = string

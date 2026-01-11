@@ -36,7 +36,12 @@ jobs:
       - name: Terraform fmt
         run: terraform fmt -check
       - name: Terraform init
-        run: terraform init
+        run: |
+          terraform init \
+            -backend-config="resource_group_name=${{ secrets.TF_STATE_RG }}" \
+            -backend-config="storage_account_name=${{ secrets.TF_STATE_STORAGE }}" \
+            -backend-config="container_name=${{ secrets.TF_STATE_CONTAINER }}" \
+            -backend-config="key=${{ secrets.TF_STATE_KEY }}"
       - name: Terraform validate
         run: terraform validate
       - name: Terraform plan
@@ -67,6 +72,11 @@ jobs:
         with:
           terraform_version: 1.6.6
       - name: Terraform init
-        run: terraform init
+        run: |
+          terraform init \
+            -backend-config="resource_group_name=${{ secrets.TF_STATE_RG }}" \
+            -backend-config="storage_account_name=${{ secrets.TF_STATE_STORAGE }}" \
+            -backend-config="container_name=${{ secrets.TF_STATE_CONTAINER }}" \
+            -backend-config="key=${{ secrets.TF_STATE_KEY }}"
       - name: Terraform apply
         run: terraform apply -auto-approve

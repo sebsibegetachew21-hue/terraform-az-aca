@@ -1,7 +1,7 @@
 locals {
   # short random suffix to keep names globally unique
   suffix = random_id.suffix.hex
-  rg_name = "${var.name_prefix}-rg-${local.suffix}"
+  rg_name = var.resource_group_name
 }
 
 resource "random_id" "suffix" {
