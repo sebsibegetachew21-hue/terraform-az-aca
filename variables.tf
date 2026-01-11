@@ -22,6 +22,11 @@ variable "target_port" {
   default     = 80
 }
 
+variable "container_app_environment_id" {
+  description = "Existing Container Apps Environment resource ID to reuse"
+  type        = string
+}
+
 variable "acr_name" {
   description = "Globally unique ACR name (5-50 chars, lowercase alphanumeric only)"
   type        = string

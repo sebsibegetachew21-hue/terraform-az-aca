@@ -2,5 +2,6 @@
 # location      = "centralus"
 # name_prefix   = "sebsibe-aca"
 # acr_name      = "tfaca7870acr"
+# container_app_environment_id = "/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/rg-name/providers/Microsoft.App/managedEnvironments/env-name"
 # container_image = "nginx:latest"
 # target_port   = 80
