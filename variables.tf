@@ -21,3 +21,13 @@ variable "target_port" {
   type        = number
   default     = 80
 }
+
+variable "acr_name" {
+  description = "Globally unique ACR name (5-50 chars, lowercase alphanumeric only)"
+  type        = string
+
+  validation {
+    condition     = can(regex("^[a-z0-9]{5,50}$", var.acr_name))
+    error_message = "acr_name must be 5-50 characters and contain only lowercase letters and numbers."
+  }
+}

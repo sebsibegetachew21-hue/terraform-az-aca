@@ -1,5 +1,6 @@
 # Copy to terraform.tfvars to override defaults
 # location      = "centralus"
 # name_prefix   = "sebsibe-aca"
+# acr_name      = "tfaca7870acr"
 # container_image = "nginx:latest"
 # target_port   = 80
