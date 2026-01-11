@@ -1,2 +1,2 @@
-acr_name = "tfaca7870acr"
+acr_name = "sebsibeaca7870"
 location = "centralus"
