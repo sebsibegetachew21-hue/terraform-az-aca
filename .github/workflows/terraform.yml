@@ -84,8 +84,13 @@ jobs:
             -backend-config="key=${{ secrets.TF_STATE_KEY }}"
       - name: Terraform import resource group (if needed)
         run: |
-          if ! terraform state show azurerm_resource_group.rg >/dev/null 2>&1; then
-            terraform import azurerm_resource_group.rg "/subscriptions/${ARM_SUBSCRIPTION_ID}/resourceGroups/${RESOURCE_GROUP_NAME}"
+          az account set --subscription "${ARM_SUBSCRIPTION_ID}"
+          if [ "$(az group exists --name "${RESOURCE_GROUP_NAME}")" = "true" ]; then
+            if ! terraform state show azurerm_resource_group.rg >/dev/null 2>&1; then
+              terraform import azurerm_resource_group.rg "/subscriptions/${ARM_SUBSCRIPTION_ID}/resourceGroups/${RESOURCE_GROUP_NAME}"
+            fi
+          else
+            echo "Resource group ${RESOURCE_GROUP_NAME} not found; it will be created by apply."
           fi
       - name: Terraform apply
         run: terraform apply -auto-approve -lock-timeout=5m
