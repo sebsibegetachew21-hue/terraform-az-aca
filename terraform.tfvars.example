@@ -5,3 +5,4 @@
 # acr_name      = "tfaca7870acr"
 # container_image = "nginx:latest"
 # target_port   = 80
+# min_replicas  = 1

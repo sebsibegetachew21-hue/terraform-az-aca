@@ -28,6 +28,12 @@ variable "target_port" {
   default     = 80
 }
 
+variable "min_replicas" {
+  description = "Minimum number of replicas for the Container App"
+  type        = number
+  default     = 0
+}
+
 variable "acr_name" {
   description = "Globally unique ACR name (5-50 chars, lowercase alphanumeric only)"
   type        = string

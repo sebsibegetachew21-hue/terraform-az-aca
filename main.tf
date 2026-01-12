@@ -18,7 +18,7 @@ resource "azurerm_container_registry" "acr" {
   resource_group_name = azurerm_resource_group.rg.name
   location            = azurerm_resource_group.rg.location
   sku                 = "Basic"
-  admin_enabled       = false
+  admin_enabled       = true
 }
 
 resource "azurerm_log_analytics_workspace" "law" {
@@ -58,6 +58,8 @@ resource "azurerm_container_app" "hello" {
   }
 
   template {
+    min_replicas = var.min_replicas
+
     container {
       name   = "hello"
       image  = var.container_image
@@ -66,5 +68,16 @@ resource "azurerm_container_app" "hello" {
       cpu    = 0.25
       memory = "0.5Gi"
     }
+  }
+
+  registry {
+    server               = azurerm_container_registry.acr.login_server
+    username             = azurerm_container_registry.acr.admin_username
+    password_secret_name = "acr-admin-password"
+  }
+
+  secret {
+    name  = "acr-admin-password"
+    value = azurerm_container_registry.acr.admin_password
   }
 }
